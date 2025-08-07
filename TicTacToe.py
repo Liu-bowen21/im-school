@@ -6,11 +6,26 @@ class TicTacToe:
 
 
     def print_board(self):
+        """
+        This function makes sure that the board row and col will not more then three
+        params:
+        None
+        returns:
+        None
+        """
         for row in self.board:
-            print(' '.join(row))
+            print(''.join(row))
         print()
 
     def make_move(self, row, col):
+        """
+        This function makes sure that let the chess piece fall into position
+        params:
+        - row: Chess piece x
+        - col: Chess piece y
+        returns:
+        True if the chess piece is in the board, False Place it in the correct position.
+        """
         if 0 <= row < 3 and 0 <= col < 3:
             if self.board[row][col] == '-':
                 self.board[row][col] = self.player
@@ -23,15 +38,36 @@ class TicTacToe:
 
 
     def check_winner(self):
+        """
+        This function makes sure that check the winner
+        params:
+        None
+        returns:
+        any 
+        """
         b = self.board
         lines = b + [[b[r][c] for r in range(3)] for c in range(3)] + \
                 [[b[i][i] for i in range(3)]] + [[b[i][2 - i] for i in range(3)]]
         return any(line[0] != '-' and all(cell == line[0] for cell in line) for line in lines)
 
     def is_full(self):
+        """
+        This function makes sure that check all the position have X or O
+        params:
+        None
+        returns:
+        all
+        """
         return all(cell != '-' for row in self.board for cell in row)
 
     def is_game_over(self):
+        """
+        This function makes sure that who win
+        params:
+        None
+        returns:
+        None
+        """
         if self.check_winner():
             print(f"Player{self.player}win")
             self.game_over = True
@@ -41,6 +77,13 @@ class TicTacToe:
 
 
     def place_marker(self):
+        """
+        This function makes sure that let the player put the X or O in the board
+        params:
+        None
+        returns:
+        None
+        """
         row = int(input("Row (0-2): "))
         col = int(input("Col (0-2): "))
         if self.board[row][col] == '-':
@@ -55,6 +98,13 @@ class TicTacToe:
         
 
     def play_game(self):
+        """
+        This function makes sure that game start is playerX first
+        params:
+        None
+        returns:
+        None
+        """
         self.turn = 'playerX'
         while self.game_over is False:
             self.place_marker()
