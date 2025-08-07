@@ -109,6 +109,8 @@ class TicTacToe:
         self.print_board()
         while not self.game_over:
             self.random_move(self.current_player)
+            import time
+            time.sleep(2)
             self.print_board()
             winner = self.check_winner()
             if winner:

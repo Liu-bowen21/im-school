@@ -67,7 +67,8 @@ class TicTacToe:
         """
         row = int(input("Row (0-2): "))
         col = int(input("Col (0-2): "))
-        if self.board[row][col] == '-':
+        if 0 <= row < 3 and 0 <= col < 3 and self.board[row][col] == '-':
+            self.board[row][col] == '-'
             if self.player == 'X':
                 self.board[row][col] = 'O'
                 self.player = 'O'

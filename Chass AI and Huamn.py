@@ -137,7 +137,7 @@ class ChessBoard:
         self.board[r2][c2] = self.board[r1][c1]
         self.board[r1][c1] = '-'
 
-    def play_random_game(self, max_moves=50):
+    def play_random_game(self, max_moves=10000):
         turn = 'white'
         for move_num in range(max_moves):
             moves = self.get_piece_moves(turn)
@@ -262,7 +262,9 @@ if __name__ == "__main__":
     else:
         print("Random moves: White vs Black AI")
         turn = 'white'
-        for move_num in range(50):
+        for move_num in range(1000):
+            import time
+            time.sleep(0.8)
             winner = chess.get_winner()
             if winner:
                 print(f"{winner.capitalize()} wins by capturing the king!")
