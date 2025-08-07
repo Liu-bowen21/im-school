@@ -4,6 +4,7 @@ class TicTacToe:
         self.player = 'X'
         self.game_over = False
 
+
     def print_board(self):
         for row in self.board:
             print(' '.join(row))
@@ -20,6 +21,7 @@ class TicTacToe:
             print("Invalid move: row and column must be 0-2.")
         return False
 
+
     def check_winner(self):
         b = self.board
         lines = b + [[b[r][c] for r in range(3)] for c in range(3)] + \
@@ -31,34 +33,41 @@ class TicTacToe:
 
     def is_game_over(self):
         if self.check_winner():
-            print(f"Player {self.player} wins!")
+            print(f"Player{self.player}win")
             self.game_over = True
         elif self.is_full():
-            print("It's a tie!")
+            print("It's a tie")
             self.game_over = True
 
-    def place_marker(self):
-        while True:
-            try:
-                row = int(input(f"Player {self.player}, enter row (0-2): "))
-                col = int(input(f"Player {self.player}, enter col (0-2): "))
-                if self.make_move(row, col):
-                    break
-            except ValueError:
-                print("Please enter a valid number.")
 
-        self.print_board()
-        self.is_game_over()
-        if not self.game_over:
-            self.player = 'O' if self.player == 'X' else 'X'
+    def place_marker(self):
+        row = int(input("Row (0-2): "))
+        col = int(input("Col (0-2): "))
+        if self.board[row][col] == '-':
+            if self.player == 'X':
+                self.board[row][col] = 'O'
+                self.player = 'O'
+            else:
+                self.board[row][col] = 'X'
+                self.player = 'X'
+        else:
+            print("You cannot put that there!")
+        
 
     def play_game(self):
-        print("Welcome to Tic Tac Toe!")
-        self.print_board()
-        while not self.game_over:
+        self.turn = 'playerX'
+        while self.game_over is False:
             self.place_marker()
+            self.print_board()
+            self.is_game_over()
+            self.turn = 'playerO'
+
+                
+
+tictactoe = TicTacToe()
+tictactoe.print_board()
 
 
 if __name__ == "__main__":
-    game = TicTacToe()
-    game.play_game()
+    tictactoe = TicTacToe()
+    tictactoe.play_game()

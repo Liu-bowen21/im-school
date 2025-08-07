@@ -33,7 +33,7 @@ class TicTacToe:
 
     def is_game_over(self):
         if self.check_winner():
-            print(f"Player{self.player}win!")
+            print(f"Player{self.player}win")
             self.game_over = True
         elif self.is_full():
             print("It's a tie")
@@ -52,7 +52,7 @@ class TicTacToe:
                 self.player = 'X'
         else:
             print("You cannot put that there!")
-
+        
 
     def play_game(self):
         self.turn = 'playerX'
@@ -62,7 +62,7 @@ class TicTacToe:
             self.is_game_over()
             self.turn = 'playerO'
 
-
+                
 
 tictactoe = TicTacToe()
 tictactoe.print_board()
