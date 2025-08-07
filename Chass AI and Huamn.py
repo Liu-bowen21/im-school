@@ -4,6 +4,14 @@ import random
 # This is a basic chess board and piece setup in Python
 
 class ChessBoard:
+    def get_winner(self):
+        white_king = any('K' in row for row in self.board)
+        black_king = any('k' in row for row in self.board)
+        if not white_king:
+            return 'black'
+        if not black_king:
+            return 'white'
+        return None
     def get_piece_moves(self, color):
         moves = []
         captures = []
@@ -196,6 +204,11 @@ if __name__ == "__main__":
     if mode == '1':
         turn = 'white'
         for move_num in range(50):
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+                chess.print_board()
+                break
             if turn == 'white':
                 moves = chess.get_piece_moves('white')
                 if not moves:
@@ -208,14 +221,30 @@ if __name__ == "__main__":
                 if not moves:
                     print("No moves for black. Game over.")
                     break
-                move = random.choice(moves)
+                # Prefer captures if available
+                captures = [m for m in moves if chess.board[m[1][0]][m[1][1]] != '-']
+                if captures:
+                    move = random.choice(captures)
+                else:
+                    move = random.choice(moves)
                 print(f"AI (black) moves {move}")
                 chess.make_move(move)
             chess.print_board()
             turn = 'black' if turn == 'white' else 'white'
+        else:
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+            else:
+                print("Draw or move limit reached.")
     elif mode == '2':
         turn = 'white'
         for move_num in range(50):
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+                chess.print_board()
+                break
             moves = chess.get_piece_moves(turn)
             if not moves:
                 print(f"No moves for {turn}. Game over.")
@@ -224,6 +253,38 @@ if __name__ == "__main__":
             chess.make_move(move)
             chess.print_board()
             turn = 'black' if turn == 'white' else 'white'
+        else:
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+            else:
+                print("Draw or move limit reached.")
     else:
         print("Random moves: White vs Black AI")
-        chess.play_random_game()
+        turn = 'white'
+        for move_num in range(50):
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+                chess.print_board()
+                break
+            moves = chess.get_piece_moves(turn)
+            if not moves:
+                print(f"No moves for {turn}. Game over.")
+                break
+            # Prefer captures if available
+            captures = [m for m in moves if chess.board[m[1][0]][m[1][1]] != '-']
+            if captures:
+                move = random.choice(captures)
+            else:
+                move = random.choice(moves)
+            chess.make_move(move)
+            print(f"Move {move_num+1}: {turn} moves {move}")
+            chess.print_board()
+            turn = 'black' if turn == 'white' else 'white'
+        else:
+            winner = chess.get_winner()
+            if winner:
+                print(f"{winner.capitalize()} wins by capturing the king!")
+            else:
+                print("Draw or move limit reached.")

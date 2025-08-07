@@ -1,13 +1,13 @@
 class TicTacToe:
     def __init__(self):
         self.board = [['-' for _ in range(3)] for _ in range(3)]
-        self.player = 'X'
+        self.player = 'O'
         self.game_over = False
 
 
     def print_board(self):
         """
-        This function makes sure that the board row and col will not more then three
+        This function makes the board
         params:
         None
         returns:
@@ -17,25 +17,6 @@ class TicTacToe:
             print(''.join(row))
         print()
 
-    def make_move(self, row, col):
-        """
-        This function makes sure that let the chess piece fall into position
-        params:
-        - row: Chess piece x
-        - col: Chess piece y
-        returns:
-        True if the chess piece is in the board, False Place it in the correct position.
-        """
-        if 0 <= row < 3 and 0 <= col < 3:
-            if self.board[row][col] == '-':
-                self.board[row][col] = self.player
-                return True
-            else:
-                print("Cell already taken.")
-        else:
-            print("Invalid move: row and column must be 0-2.")
-        return False
-
 
     def check_winner(self):
         """
@@ -43,7 +24,7 @@ class TicTacToe:
         params:
         None
         returns:
-        any 
+        - bool true if have a winner, false otherwise  
         """
         b = self.board
         lines = b + [[b[r][c] for r in range(3)] for c in range(3)] + \
@@ -56,7 +37,7 @@ class TicTacToe:
         params:
         None
         returns:
-        all
+        - bool true if the board is full,false otherwise
         """
         return all(cell != '-' for row in self.board for cell in row)
 
